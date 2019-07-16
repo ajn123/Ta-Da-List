@@ -15,6 +15,11 @@ class Api::ItemsController < Api::ApiController
     end
   end
 
+  def show
+    list = List.find(params[:list_id])
+
+  end
+
   private
 
   def item_params

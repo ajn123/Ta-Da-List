@@ -17,6 +17,7 @@ RSpec.describe Api::ListsController, type: :controller do
     end
   end
 
+
   describe "DELETE list" do
 
     let!(:list) { FactoryBot.create(:list_one)}
@@ -27,6 +28,13 @@ RSpec.describe Api::ListsController, type: :controller do
       delete :destroy, params: { id: id}
       expect(response).to have_http_status(:ok)
       end.to change{List.count}.by(-1)
+    end
+
+
+    it 'can patch' do
+       patch :update, params: {id: list.id, list: {title: "hello" }}
+       expect(response).to have_http_status(:ok)
+       expect(list.reload.title).to eq("hello")
     end
   end
 end
