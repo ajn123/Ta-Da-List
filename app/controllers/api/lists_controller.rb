@@ -3,7 +3,7 @@ class Api::ListsController < Api::ApiController
   before_action :find_list, only: [:update, :destroy, :show]
 
   def index
-    render status: :ok, json: { lists: List.all }.to_json
+    render status: :ok, json: { lists: List.all.as_json(include: [:items]) }.to_json
   end
 
   def create

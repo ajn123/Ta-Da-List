@@ -1,0 +1,39 @@
+<h1>Lists#index</h1>
+<p>Find me in app/views/lists/index.html.erb</p>
+
+
+<div id="app">
+
+  <h2 v-text="product.name"></h2>
+  <h2 v-text="product.description"></h2>
+  <h2> {{ product.price | formatPrice }}</h2>
+
+
+  <ul>
+    <li v-for="item in items"> {{ item.message}}</li>
+  </ul>
+
+
+
+  <button class="default" v-on:click="addToCart">Add To Cart</button>
+  <button id="default" @click="showCart">h;hh</button>
+
+  <h1>
+    Lists:
+  </h1>
+  <ol>
+    <li v-for="(list, index) in lists">
+          {{ list.title }}
+    </li>
+
+  </ol>
+</div>
+
+
+
+<div id="calc">
+  <button v-on:click="length += 1"> Length</button>
+  <button @click="width += 1">Width</button>
+
+  <h3 > Area is: {{ area }}</h3>
+</div>
