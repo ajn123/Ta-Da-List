@@ -13,8 +13,8 @@ class Api::ListsController < Api::ApiController
     list = List.new(list_params)
     if list.save
       ActionCable.server.broadcast 'list_channel',
-                                  action: 'CREATE',
-                                  list: list.as_json(include: [:items])
+                                   action: 'CREATE',
+                                   list: list.as_json(include: [:items])
       render status: :ok, json: { message: 'Successful creation', list: list }
     else
       render status: :unprocessable_entity, json: {
@@ -28,7 +28,7 @@ class Api::ListsController < Api::ApiController
     ActionCable.server.broadcast 'list_channel',
                                  action: 'DELETE',
                                  id: id
-    render status: :ok, json: { message: "destroyed", list: @list }.to_json
+    render status: :ok, json: { message: 'destroyed', list: @list }.to_json
   end
 
   def update
