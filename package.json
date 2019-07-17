@@ -3,7 +3,9 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.7",
+    "actioncable-vue": "^1.2.4",
     "axios": "^0.19.0",
+    "lodash": "^4.17.14",
     "vue": "^2.6.10",
     "vue-resource": "^1.5.1",
     "vue-turbolinks": "^2.0.4"

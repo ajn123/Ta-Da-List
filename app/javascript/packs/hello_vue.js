@@ -2,8 +2,17 @@ import Vue from 'vue/dist/vue.esm'
 import TurbolinksAdapter from 'vue-turbolinks'
 import VueResource from 'vue-resource'
 import axios from "axios"
+import ActionCableVue from 'actioncable-vue'
+
+import _ from 'lodash'
 
 Vue.use(require('vue-resource'));
+
+Vue.use(ActionCableVue, {
+	debug: true,
+	debugLevel: 'error',
+	connectionUrl: 'http://localhost:3000/cable'
+});
 
 function isNotNumericValue(value) {
   return isNaN(value) || !isFinite(value);
@@ -23,22 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
       lists: [],
     },
     created: function() {
-      fetch('/api/lists.json').then((r) => {
-        console.log(r); 
-      });
-        axios.get('/api/lists.json').then(resp => {
-          console.log(resp); 
-          resp.data.lists.forEach((elem) => {
-            this.lists.push(elem);
-          });
+      axios.get('/api/lists.json').then(resp => {
+        resp.data.lists.forEach((elem) => {
+          this.lists.push(elem);
         });
+      });
     },
     
-      filters: {
-        formatPrice: function(price) {
-          return "$" + price.toFixed(2); 
-        }
-      },
+    filters: {
+      formatPrice: function(price) {
+        return "$" + price.toFixed(2); 
+      }
+    },
     methods: {
       addToCart: function() {
         this.cart.push(this.product.id); 
@@ -51,21 +56,27 @@ document.addEventListener('DOMContentLoaded', () => {
       fullName: function() {
         return ["Alex", "Norton"].join(' ');  
       }
-    }
-    
-  });
-
-
-  var calc = new Vue( {
-    el: '#calc',
-    data: { length: 0, width: 1},
-    computed: {
-      area: function() {
-        return this.length * this.width; 
+    },
+    channels: {
+      ListChannel: {
+        received(data) {
+          if (data.action == "DELETE") {
+            let idx = _.findIndex(this.lists, function(o) {
+              return o.id == data.id;}); 
+            
+            this.lists.splice(idx,1); 
+          }
+          else {
+            console.log(data.list); 
+            this.lists.push(data.list);
+          }
+        }
       }
+    },
+    mounted() {
+      this.$cable.subscribe({channel: 'ListChannel'});
     }
   });
-
 }); 
 
 

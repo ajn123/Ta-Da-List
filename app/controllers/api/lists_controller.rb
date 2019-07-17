@@ -11,9 +11,10 @@ class Api::ListsController < Api::ApiController
 
   def create
     list = List.new(list_params)
-    Action.server.broadcast 'list_channel',
-                            title: list.title
     if list.save
+      ActionCable.server.broadcast 'list_channel',
+                                  action: 'CREATE',
+                                  list: list.as_json(include: [:items])
       render status: :ok, json: { message: 'Successful creation', list: list }
     else
       render status: :unprocessable_entity, json: {
@@ -23,8 +24,11 @@ class Api::ListsController < Api::ApiController
   end
 
   def destroy
-    render :no_content unless @list.destroy
-    render status: :ok, json: { message: "#{@list.inspect} destroyed" }
+    id = @list.id
+    ActionCable.server.broadcast 'list_channel',
+                                 action: 'DELETE',
+                                 id: id
+    render status: :ok, json: { message: "destroyed", list: @list }.to_json
   end
 
   def update
