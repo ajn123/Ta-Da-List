@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get 'lists/index'
   get 'lists/show'
@@ -5,12 +7,13 @@ Rails.application.routes.draw do
   #
   #
 
-
-  root "lists#index"
+  root 'lists#index'
 
   namespace :api do
     resources :lists do
       resources :items
     end
   end
+
+  mount ActionCable.server, at: '/cable'
 end

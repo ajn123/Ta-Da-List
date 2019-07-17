@@ -1,7 +1,7 @@
 import Vue from 'vue/dist/vue.esm'
 import TurbolinksAdapter from 'vue-turbolinks'
 import VueResource from 'vue-resource'
-import axios from "axios";
+import axios from "axios"
 
 Vue.use(require('vue-resource'));
 
