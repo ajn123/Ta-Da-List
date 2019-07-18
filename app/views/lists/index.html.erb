@@ -4,32 +4,44 @@
   <h2 v-text="product.description"></h2>
   <h2> {{ product.price | formatPrice }}</h2>
 
-
   <ul>
     <li v-for="item in items"> {{ item.message}}</li>
   </ul>
-
-
-
-  <button class="default" v-on:click="addToCart">Add To Cart</button>
-  <button id="default" @click="showCart">h;hh</button>
-
   <h1>
     Lists:
   </h1>
   <ol>
     <li v-for="(list, index) in lists">
-          {{ list.title }}
+      {{ list.title }} 
+      <br />
+      Items: {{ list.items.length }}
+        <div v-for="(item,index) in list.items">
+            {{ item.title }}
+        </div>
     </li>
-
   </ol>
+
+  <div class="list-form">
+    
+    <input v-model="initialList.title">
+    <div v-for="(itemArray, itemCount) in initialList.itemsArray">
+      <label > Item {{itemCount}} Title</label>
+      <input v-model="itemArray.title">
+      <label > Item {{itemCount}} Content </label>
+      <input v-model="itemArray.content">
+    </div>
+
+    <button @click="addItem">Add Item</button>
+
+    <button v-show="canSubmit" @click="submitList">Submit List</button>
+  </div>
+
+  <div>
+    <h3> Title: {{ initialList.title }} </h3>
+    <h3> Items: {{ initialList.items }}</h3>
+  </div>
+
 </div>
 
 
 
-<div id="calc">
-  <button v-on:click="length += 1"> Length</button>
-  <button @click="width += 1">Width</button>
-
-  <h3 > Area is: {{ area }}</h3>
-</div>

@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
       cart: [],
       lists: [],
+      initialList: {title: "", items: 0, itemsArray: []},
     },
     created: function() {
       axios.get('/api/lists.json').then(resp => {
@@ -48,14 +49,30 @@ document.addEventListener('DOMContentLoaded', () => {
       addToCart: function() {
         this.cart.push(this.product.id); 
       },
-      showCart: function() {
-      }
+      addItem: function() {
+        this.initialList.items += 1;
+        this.initialList.itemsArray.push({title: "", content: ""});
+      },
+      submitList: function() {
+        axios.post("/api/lists.json", { list: {title: this.initialList.title,
+                                        items_attributes: this.initialList.itemsArray} }).then(
+        function(response) {
+          console.log(response); 
+          this.initialList.title = "";
+
+        }).catch(function(error) {
+          console.log(error); 
+        });
+      },
       
     },
     computed: {
       fullName: function() {
         return ["Alex", "Norton"].join(' ');  
-      }
+      },
+      canSubmit: function() {
+        return this.initialList.title.length > 0;
+      },
     },
     channels: {
       ListChannel: {

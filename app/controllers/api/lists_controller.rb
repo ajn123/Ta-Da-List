@@ -18,7 +18,7 @@ class Api::ListsController < Api::ApiController
       render status: :ok, json: { message: 'Successful creation', list: list }
     else
       render status: :unprocessable_entity, json: {
-        message: list.errors
+        message: list.errors.full_messages.to_s
       }.to_json
     end
   end
@@ -38,8 +38,9 @@ class Api::ListsController < Api::ApiController
       }
     else
       render status: :internal_server_error, json: {
-        message: 'Could not update list'
-      }
+        message: 'Could not update list',
+        errors: @list.errors.full_messages.to_s
+      }.to_json
     end
   end
 
@@ -50,7 +51,7 @@ class Api::ListsController < Api::ApiController
   private
 
   def list_params
-    params.require(:list).permit(:title, player_attributes: [:id, :title, :content, :_destroy])
+    params.require(:list).permit(:title, items_attributes: [:list_id, :id, :title, :content, :_destroy])
   end
 
   def find_list

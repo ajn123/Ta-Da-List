@@ -3,5 +3,5 @@
 class Item < ApplicationRecord
   belongs_to :list
 
-  validates :title, :content, presence: true
+  validates :title, :content, presence: true, uniqueness: { scope: :list}
 end
