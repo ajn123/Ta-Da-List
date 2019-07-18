@@ -50,7 +50,7 @@ class Api::ListsController < Api::ApiController
   private
 
   def list_params
-    params.require(:list).permit(:title)
+    params.require(:list).permit(:title, player_attributes: [:id, :title, :content, :_destroy])
   end
 
   def find_list
