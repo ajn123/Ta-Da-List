@@ -19,7 +19,6 @@ function isNotNumericValue(value) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   var webstore = new Vue({
     el: '#app',
     data: { sitename: 'Vue.js Pet Depot',
@@ -46,6 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     },
     methods: {
+      removeItem: function(index) {
+        this.initialList.itemsArray.splice(index,1);
+        this.initialList.items -= 1;
+      },
       addToCart: function() {
         this.cart.push(this.product.id); 
       },
