@@ -2,4 +2,10 @@
 
 class User < ApplicationRecord
   has_secure_password
+
+
+
+  def self.api_authorized(api_key)
+      User.all.pluck(:api_key).include?(password)
+  end
 end

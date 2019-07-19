@@ -15,3 +15,11 @@
  */
 
 @import "bootstrap"; 
+
+.list-group-item {
+  
+  &:hover{
+    background-color: darken(white, 10%);
+    transition: background-color 300ms linear;
+  }
+}

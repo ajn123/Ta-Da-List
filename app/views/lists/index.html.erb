@@ -13,14 +13,12 @@
             <h5 class="card-title"> 
               {{item.title}} 
             </h5>
-            <h6 class="card-subtitle mb-2">
-            
-              {{ item.due_date }}
-            </h6>
-
             <p class="card-text">
             {{ item.content}}
             </p>
+            <h6 class="card-subtitle mb-2">
+              Due: {{ item.due_date }}
+            </h6>
           </div>
         </div>
     </li>
@@ -45,12 +43,6 @@
 
     <button v-show="canSubmit" class="btn-lg btn-block btn-primary" @click="submitList">Submit List</button>
   </div>
-
-  <div>
-    <h3> Title: {{ initialList.title }} </h3>
-    <h3> Items: {{ initialList.items }}</h3>
-  </div>
-
 </div>
 
 

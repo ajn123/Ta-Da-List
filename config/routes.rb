@@ -15,5 +15,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sessions
+  resources :users, only: [:new, :create, :destroy]
+
   mount ActionCable.server, at: '/cable'
 end

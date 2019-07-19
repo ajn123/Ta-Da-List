@@ -5,7 +5,7 @@ class Api::ListsController < Api::ApiController
 
   def index
     render status: :ok, json: {
-      lists: List.all.as_json(include: [:items])
+      lists: List.all.as_json
     }.to_json
   end
 
