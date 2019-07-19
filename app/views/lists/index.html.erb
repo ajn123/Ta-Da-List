@@ -2,31 +2,48 @@
   <h1>
     Lists:
   </h1>
-  <ol>
-    <li v-for="(list, index) in lists">
+  <ol class="list-group">
+    <li class="list-group-item" v-for="(list, index) in lists">
       {{ list.title }} 
       <br />
       Items: {{ list.items.length }}
-        <div v-for="(item,index) in list.items">
-            {{ item.title }}
+        <div style="margin:10px" class="card" v-for="(item,index) in list.items">
+          <div class="card-body">
+            
+            <h5 class="card-title"> 
+              {{item.title}} 
+            </h5>
+            <h6 class="card-subtitle mb-2">
+            
+              {{ item.due_date }}
+            </h6>
+
+            <p class="card-text">
+            {{ item.content}}
+            </p>
+          </div>
         </div>
     </li>
   </ol>
 
   <div class="list-form">
     
-    <input v-model="initialList.title">
-    <div v-for="(itemArray, itemCount) in initialList.itemsArray">
-      <label > Item {{itemCount}} Title</label>
-      <input v-model="itemArray.title">
-      <label > Item {{itemCount}} Content </label>
-      <input v-model="itemArray.content">
-      <button @click="removeItem(itemCount)">REMOVE</button>
+    <label for="">List Title: </label>
+    <input v-model="initialList.title" class="form-control">
+    <div v-for="(itemArray, itemCount) in initialList.itemsArray" class="form-group">
+      <label > Item {{itemCount + 1}} Title: </label>
+      <input v-model="itemArray.title" class="form-control">
+      <label > Item {{itemCount + 1}} Content: </label>
+      <input v-model="itemArray.content" class="form-control">
+
+      <label for="">Due Date: </label>
+      <input type="date" class="form-control" value="<%= Date.today.to_s %>" v-model="itemArray.due_date"/>
+      <button class="btn btn-danger" @click="removeItem(itemCount)">REMOVE Item {{itemCount + 1}}</button>
     </div>
 
-    <button @click="addItem">Add Item</button>
+    <button class="btn btn-secondary" @click="addItem">Add Item</button>
 
-    <button v-show="canSubmit" @click="submitList">Submit List</button>
+    <button v-show="canSubmit" class="btn-lg btn-block btn-primary" @click="submitList">Submit List</button>
   </div>
 
   <div>

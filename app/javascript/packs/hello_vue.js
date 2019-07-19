@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       addItem: function() {
         this.initialList.items += 1;
-        this.initialList.itemsArray.push({title: "", content: ""});
+        this.initialList.itemsArray.push({ title: "", content: "", due_date: "" });
       },
       submitList: function() {
         axios.post("/api/lists.json", { list: {title: this.initialList.title,
@@ -85,6 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
               return o.id == data.id;}); 
             
             this.lists.splice(idx,1); 
+          }
+          else if(data.action == "ERROR") {
+            alert(data.errors); 
+            
           }
           else {
             console.log(data.list); 

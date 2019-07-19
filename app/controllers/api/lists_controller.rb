@@ -17,6 +17,9 @@ class Api::ListsController < Api::ApiController
                                    list: list.as_json(include: [:items])
       render status: :ok, json: { message: 'Successful creation', list: list }
     else
+      ActionCable.server.broadcast 'list_channel',
+                                   action: 'ERROR',
+                                   errors: list.errors.full_messages
       render status: :unprocessable_entity, json: {
         message: list.errors.full_messages.to_s
       }.to_json
@@ -51,12 +54,14 @@ class Api::ListsController < Api::ApiController
   private
 
   def list_params
-    params.require(:list).permit(:title, items_attributes: [:list_id, :id, :title, :content, :_destroy])
+    params.require(:list).permit(:title, items_attributes: [:due_date,:list_id, 
+                                                            :id, :title, :content, :_destroy])
   end
 
   def find_list
     @list = List.find(params[:id])
-  rescue Exception
-    render status: :unprocessable_entity, json: { message: "Could not find id: #{params[:id]}" }
+  rescue StandardError
+    render status: :unprocessable_entity, json: { message:
+                              "Could not find id: #{params[:id]}" }
   end
 end
