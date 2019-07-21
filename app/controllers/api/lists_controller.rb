@@ -10,11 +10,11 @@ class Api::ListsController < Api::ApiController
   end
 
   def create
-    list = List.new(list_params)
+    list = @user.lists.build(list_params)
     if list.save
       ActionCable.server.broadcast 'list_channel',
                                    action: 'CREATE',
-                                   list: list.as_json(include: [:items])
+                                   list: list.as_json
       render status: :ok, json: { message: 'Successful creation', list: list }
     else
       ActionCable.server.broadcast 'list_channel',

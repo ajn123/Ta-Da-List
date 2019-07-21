@@ -10,6 +10,7 @@
 
 
 
-List.destroy_all
+User.destroy_all
 
-
+User.create!(email: "aj@gmail.com", password: "password")
+User.create!(email: "bob@cs.edu", password: "password")

@@ -8,13 +8,28 @@ module Api
     protect_from_forgery with: :null_session
     skip_before_action :verify_authenticity_token
 
-
+    before_action :authenticate
 
     def authenticate
-      
-      authenticate or_request_with_http_basic do |user, api_key|
-        User.api_authorized?(api_key)
-      end
+      token = request.authorization
+      puts token
+      @user = User.find_by(api_key: token)
+     #@user = authenticate_with_http_token do |token, options|
+     #  puts "YOLOR"
+     #  puts token
+     #  User.find_by(api_key: token)
+     #end
+
+      render status: :unprocessable_entity, json: { 
+        message: "please sumbit an API token in the header"
+      } unless @user
+
+#     @user.api_count += 1
+#     authenticate_or_request_with_http_basic do |user, api_key|
+#       puts user
+#       puts api_key
+#       User.api_authorized(api_key)
+#     end
       
     end
   end

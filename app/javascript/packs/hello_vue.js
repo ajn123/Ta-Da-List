@@ -3,8 +3,15 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import VueResource from 'vue-resource'
 import axios from "axios"
 import ActionCableVue from 'actioncable-vue'
+import Router from 'vue-router'
 
 import _ from 'lodash'
+
+
+Vue.use(Router);
+const router = new Router({
+  
+});
 
 Vue.use(require('vue-resource'));
 
@@ -18,27 +25,25 @@ function isNotNumericValue(value) {
   return isNaN(value) || !isFinite(value);
 }
 
+let axiosToDo = axios.create({
+  timeout: 1000,
+  headers: {'Authorization': 'qgtSJLxhuATz4gjJVL9Nog'}
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   var webstore = new Vue({
     el: '#app',
-    data: { sitename: 'Vue.js Pet Depot',
-    product:{id: 1, name: "IPhone", price: 999.99, description: "A device to ruin your life"},
-      items: [
-        { message: "hello"},
-        { message: "World 2"}
-      ],
-      cart: [],
+    data: { 
       lists: [],
       initialList: {title: "", items: 0, itemsArray: []},
     },
     created: function() {
-      axios.get('/api/lists.json').then(resp => {
+      axiosToDo.get('/api/lists.json').then(resp => {
         resp.data.lists.forEach((elem) => {
           this.lists.push(elem);
         });
       });
     },
-    
     filters: {
       formatPrice: function(price) {
         return "$" + price.toFixed(2); 
@@ -57,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         this.initialList.itemsArray.push({ title: "", content: "", due_date: "" });
       },
       submitList: function() {
-        axios.post("/api/lists.json", { list: {title: this.initialList.title,
+        axiosToDo.post("/api/lists.json", { list: {title: this.initialList.title,
                                         items_attributes: this.initialList.itemsArray} }).then(
         function(response) {
           console.log(response); 
@@ -70,9 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
       
     },
     computed: {
-      fullName: function() {
-        return ["Alex", "Norton"].join(' ');  
-      },
       canSubmit: function() {
         return this.initialList.title.length > 0;
       },
