@@ -7,11 +7,12 @@ with their list through their api.
 
 
 
-| URL                                                                             | Result                            |
-| ======                                                                          | =========                         |
-| GET /lists.json                                                                 | Returns all the users lists       |
-| POST /list.json PARAMS: title, players_attributes: [{title, content, due_date}] | Creates a list with as many items |
 
+
+|  URL               | Parameters
+| ========           | ===========                                             |
+| POST   /lists.json | content, items_attributes: {[title, content, due_date]} |
+| GET    /lists.json |                                                         |
 
 
 
