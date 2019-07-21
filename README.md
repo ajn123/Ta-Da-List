@@ -22,7 +22,7 @@ This project uses:
 * protect_from_forgery with: nullsession to allow api requests form any where
 * Action Cable to let the frontend app update after any API requests
 * Dynamic form validation with Vue.js
-* 
+* Overrides the as_json method to provided the nested attributes for a list
 
 
 Rails backend api with Vue.js binding the frontend

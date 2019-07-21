@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class List < ApplicationRecord
+  belongs_to :user
+
   has_many :items, dependent: :destroy
 
   validates :title, uniqueness: true, presence: true, length: { minimum: 5 }
 
   accepts_nested_attributes_for :items
-
-
 
   def as_json(*)
     puts "hello"
