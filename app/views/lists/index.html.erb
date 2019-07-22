@@ -4,9 +4,13 @@
   </h1>
   <ol class="list-group">
     <li class="list-group-item" v-for="(list, index) in lists">
-      {{ list.title }} 
+      <h1>
+        {{ list.title }} 
+      </h1>
       <br />
-      Items: {{ list.items.length }}
+      <h3>
+        Items: {{ list.items.length }}
+      </h3>
         <div style="margin:10px" class="card" v-for="(item,index) in list.items">
           <div class="card-body">
             

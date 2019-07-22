@@ -8,11 +8,6 @@ import Router from 'vue-router'
 import _ from 'lodash'
 
 
-Vue.use(Router);
-const router = new Router({
-  
-});
-
 Vue.use(require('vue-resource'));
 
 Vue.use(ActionCableVue, {

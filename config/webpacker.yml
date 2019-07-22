@@ -34,6 +34,7 @@ default: &default
     - .woff2
 
   extensions:
+    - .vue
     - .mjs
     - .js
     - .sass
@@ -92,4 +93,4 @@ production:
   extract_css: true
 
   # Cache manifest.json for performance
-  cache_manifest: true
+  #cache_manifest: true

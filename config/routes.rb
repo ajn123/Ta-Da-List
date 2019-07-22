@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'lists/index'
-  get 'lists/show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  #
-  #
 
-  root 'lists#index'
+  root :to => "application#index"
+  match "*path", to: "application#index", format: false, via: :get
 
   namespace :api do
     resources :lists do
