@@ -1,7 +1,10 @@
 import Vue from 'vue/dist/vue.esm';
 import VueRouter from 'vue-router';
-import HomeIndex from './components/Home.vue';
+
 Vue.use(VueRouter);
+
+
+import HomeIndex from './components/Home.vue';
 
 
 const router = new VueRouter({

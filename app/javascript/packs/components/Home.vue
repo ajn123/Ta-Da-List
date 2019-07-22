@@ -5,7 +5,7 @@
       Lists:
     </h1>
     <ol class="list-group">
-      <li class="list-group-item" v-for="(list, index) in lists">
+      <li class="list-group-item" v-for="(list, idx) in lists">
         <h1>
           {{ list.title }} 
         </h1>
@@ -24,6 +24,11 @@
               </p>
               <h6 class="card-subtitle mb-2">
                 Due: {{ item.due_date }}
+              </h6>
+              <h6>
+                <input type="checkbox" v-model="item.completed"
+                @click="completeItem(idx,index)">
+                Completed: {{ item.completed }}
               </h6>
             </div>
           </div>
@@ -64,24 +69,24 @@ let axiosToDo = axios.create({
 });
   
     export default {
-data: function() {
-      return { 
-      lists: [],
-      initialList: {title: "", items: 0, itemsArray: []}};
-    },
-    created: function() {
-      axiosToDo.get('/api/lists.json').then(resp => {
-        resp.data.lists.forEach((elem) => {
-          this.lists.push(elem);
+      data: function() {
+        return { 
+        lists: [],
+        initialList: {title: "", items: 0, itemsArray: []}};
+      },
+      created: function() {
+        axiosToDo.get('/api/lists.json').then(resp => {
+          resp.data.lists.forEach((elem) => {
+            this.lists.push(elem);
+          });
         });
-      });
-    },
-    filters: {
-      formatPrice: function(price) {
-        return "$" + price.toFixed(2); 
-      }
-    },
+      },
     methods: {
+      completeItem: function(listIndex, itemIndex) {
+      this.lists[listIndex].items.splice(itemIndex,1); 
+      // API Call Here TODO
+
+      },
       removeItem: function(index) {
         this.initialList.itemsArray.splice(index,1);
         this.initialList.items -= 1;

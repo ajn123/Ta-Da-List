@@ -1,15 +1,12 @@
 <nav class="navbar navbar-dark bg-dark">
   <%= link_to "Ta-Da List", root_path, class: "navbar-brand" %>
 
-
   <% if !logged_in? %>
-    
     <div class="nav-item">
       <%= link_to "Sign In", new_session_path, class: "btn btn-success "  %>
     </div>
     <div class="nav-item">
       <%= link_to "Sign Up", new_user_path, class: "btn btn-primary "  %>
-    
     </div>
   <% else %>
     <div class="nav-item">

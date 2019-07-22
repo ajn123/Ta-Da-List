@@ -24,8 +24,13 @@ import ActionCableVue from 'actioncable-vue'
 import Router from 'vue-router'
 import router from './routes.js'
 import _ from 'lodash'
+import './filters/strings.js'
+
+import NavTop from './components/shared/nav_top'
 
 Vue.use(require('vue-resource'));
+
+Vue.component('nav-top', NavTop);
 
 Vue.use(ActionCableVue, {
 	debug: true,

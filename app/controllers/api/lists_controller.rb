@@ -54,7 +54,7 @@ class Api::ListsController < Api::ApiController
   private
 
   def list_params
-    params.require(:list).permit(:title, items_attributes: [:due_date,:list_id, 
+    params.require(:list).permit(:title, items_attributes: [:completed, :due_date,:list_id, 
                                                             :id, :title, :content, :_destroy])
   end
 
