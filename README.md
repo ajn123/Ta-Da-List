@@ -3,14 +3,16 @@
 
 This is a Single Page Application that allows users to 
 log in and create a to-do list.  The user can also interact
-with their list through their api.
+with their list through my api.
 
+
+You can create to do lists and mark them completed as you go.
 
 
 
 
 |  URL               | Parameters
-| ========           | ===========                                             |
+| --------           | -----------                                             |
 | POST   /lists.json | content, items_attributes: {[title, content, due_date]} |
 | GET    /lists.json |                                                         |
 
@@ -24,6 +26,7 @@ This project uses:
 * Dynamic form validation with Vue.js
 * Overrides the as_json method to provided the nested attributes for a list
 * Uses memoization to only create item JSON objects once
+* Routing with Vue Router
 
 
 Rails backend api with Vue.js binding the frontend
