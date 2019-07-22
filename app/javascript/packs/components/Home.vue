@@ -139,8 +139,6 @@ let axiosToDo = axios.create({
     mounted() {
       this.$cable.subscribe({channel: 'ListChannel'});
     }
-
-  
   }
 
 

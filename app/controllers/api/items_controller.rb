@@ -2,14 +2,17 @@
 
 # Api controller for items
 class Api::ItemsController < Api::ApiController
+
+  before_action :find_list
+
   def index
     render status: 200, json: {
-      items: List.find(params[:list_id]).items
+      items: @list.items
     }.to_json
   end
 
   def create
-    item = List.find(params[:list_id]).items.build(item_params)
+    item = @list.items.build(item_params)
     if item.save
       render status: :ok, json: { message: 'Successfully created ' }
     else
@@ -19,13 +22,17 @@ class Api::ItemsController < Api::ApiController
     end
   end
 
-  def show
-    List.find(params[:list_id])
-  end
+  def show; end
+
+  def destroy; end
 
   private
 
   def item_params
     params.require(:item).permit(:title, :content, :due_date)
+  end
+
+  def find_list
+    @list = List.find(params[:list_id])
   end
 end
