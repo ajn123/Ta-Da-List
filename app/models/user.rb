@@ -7,16 +7,16 @@ class User < ApplicationRecord
 
   has_many :lists, dependent: :destroy
 
-  validates :email, presence: true, format: { with: /\A.*@.*\Z/}
+  validates :email, presence: true, format: { with: /\A.*@.*\Z/ }
 
   before_create do
     self.api_key = SecureRandom.urlsafe_base64
-    while true == User.api_authorized(self.api_key)
+    while User.api_authorized(api_key) == true
       self.api_key = SecureRandom.urlsafe_base64
     end
   end
 
   def self.api_authorized(api_key)
-      User.all.pluck(:api_key).include?(api_key)
+    User.all.pluck(:api_key).include?(api_key)
   end
 end

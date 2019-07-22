@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root :to => "application#index"
+  root to: 'application#index'
 
   namespace :api do
     resources :lists do
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :sessions
-  resources :users, only: [:new, :create, :destroy]
+  resources :users, only: %i[new create destroy]
 
   mount ActionCable.server, at: '/cable'
 end

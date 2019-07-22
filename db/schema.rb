@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,32 +12,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_184022) do
-
-  create_table "items", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "due_date"
-    t.integer "list_id"
-    t.boolean "completed", default: false
-    t.index ["list_id"], name: "index_items_on_list_id"
+ActiveRecord::Schema.define(version: 20_190_722_184_022) do
+  create_table 'items', force: :cascade do |t|
+    t.string 'title'
+    t.text 'content'
+    t.datetime 'due_date'
+    t.integer 'list_id'
+    t.boolean 'completed', default: false
+    t.index ['list_id'], name: 'index_items_on_list_id'
   end
 
-  create_table "lists", force: :cascade do |t|
-    t.string "title"
-    t.datetime "due_date"
-    t.integer "task_count"
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_lists_on_user_id"
+  create_table 'lists', force: :cascade do |t|
+    t.string 'title'
+    t.datetime 'due_date'
+    t.integer 'task_count'
+    t.integer 'user_id'
+    t.index ['user_id'], name: 'index_lists_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "api_key"
-    t.integer "api_count", default: 0
+  create_table 'users', force: :cascade do |t|
+    t.string 'email'
+    t.string 'password_digest'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'api_key'
+    t.integer 'api_count', default: 0
   end
-
 end

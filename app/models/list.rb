@@ -11,11 +11,10 @@ class List < ApplicationRecord
 
   def as_json(*)
     super.tap do |hash|
-      hash["items"] ||= []
-      self.items.each do |item|
-        hash["items"] << item.as_json
+      hash['items'] ||= []
+      items.each do |item|
+        hash['items'] << item.as_json
       end
     end
-    
   end
 end
