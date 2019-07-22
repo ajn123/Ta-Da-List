@@ -1,11 +1,12 @@
 const { environment } = require('@rails/webpacker')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 const vue = require('./loaders/vue')
 
 environment.loaders.append('vue', vue)
 environment.plugins.append('VueLoaderPlugin', new VueLoaderPlugin())
 
 
+environment.loaders.prepend('vue', vue)
 module.exports = {
   module: {
     rules: [
@@ -22,4 +23,5 @@ module.exports = {
   ]
 }
 
+environment.loaders.prepend('vue', vue)
 module.exports = environment
