@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def new; end
 
+  # Log in user
   def create
     user = User.find_by(email: params[:session][:email])
-    if user&.authenticate(params[:session][:password])
+    if user && authenticate(params[:session][:password])
       session[:user_id] = user.id
+      render status: :ok, json: { user_id: session[:user_id] }
+    else
+      render status: :unprocessable_entity, json: { message: 'login failed' }
     end
-
-    redirect_to root_path
   end
 
   def status
