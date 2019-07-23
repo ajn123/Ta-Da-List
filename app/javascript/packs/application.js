@@ -25,6 +25,7 @@ import Router from 'vue-router'
 import router from './routes.js'
 import _ from 'lodash'
 import './filters/strings.js'
+import store from './vuex'
 
 import NavTop from './components/shared/nav_top'
 
@@ -45,4 +46,18 @@ let axiosToDo = axios.create({
 
 var webstore = new Vue({
   el: '#app',
-  router});
+  router,
+  store,
+  data: {
+    isloggin: false
+    
+  },
+  created: function() {
+     
+
+  }
+
+
+
+
+});

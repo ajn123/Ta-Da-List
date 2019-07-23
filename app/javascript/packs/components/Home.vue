@@ -1,6 +1,17 @@
 <template> 
 
   <div id="app">
+    <h2>
+      <router-link :to="{ name: 'login_path'}">
+        Login
+      </router-link>
+    </h2>
+    <h2>
+      <router-link :to="{ name: 'signup_path'}">
+        Sign Up
+      </router-link>
+    </h2>
+
     <h1>
       Lists:
     </h1>

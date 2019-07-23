@@ -12,6 +12,12 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def status
+    respond_to do |format|
+      format.json { render json: { user_id: session[:user_id] } }
+    end
+  end
+
   def destroy
     session[:user_id] = nil
     redirect_to root_path
