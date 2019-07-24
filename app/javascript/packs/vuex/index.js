@@ -1,4 +1,4 @@
-import Vue from 'vue/dist/vue.esm'
+import Vue from 'vue'
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
@@ -13,10 +13,13 @@ const store = new Vuex.Store({
  state: {
     lists: [],
     initialList: {title: "", items: 0, itemsArray: []},
-    user: { token: null }
-  }
-  ,
+    user: { token: null, api_key: null }
+  },
   mutations: {
+    userLogIn(state, user) {
+      state.user.token = user.id;
+      state.user.api_key = user.api_key;
+    },
     
   },
   actions: {
@@ -29,7 +32,6 @@ const store = new Vuex.Store({
       }).catch((error) => {
         console.log(error);
       });
-      
     }
     
   },

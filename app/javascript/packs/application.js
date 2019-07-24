@@ -16,22 +16,20 @@
 // const imagePath = (name) => images(name, true)
 
 
-import Vue from 'vue/dist/vue.esm'
+import Vue from 'vue'
 import TurbolinksAdapter from 'vue-turbolinks'
 import VueResource from 'vue-resource'
 import axios from "axios"
 import ActionCableVue from 'actioncable-vue'
 import Router from 'vue-router'
 import router from './routes.js'
-import _ from 'lodash'
 import './filters/strings.js'
 import store from './vuex'
 
 import NavTop from './components/shared/nav_top'
+import App from './App.vue'
 
 Vue.use(require('vue-resource'));
-
-Vue.component('nav-top', NavTop);
 
 Vue.use(ActionCableVue, {
 	debug: true,
@@ -45,19 +43,14 @@ let axiosToDo = axios.create({
 });
 
 var webstore = new Vue({
-  el: '#app',
   router,
   store,
+  el: '#app',
   data: {
     isloggin: false
-    
   },
   created: function() {
-     
-
-  }
-
-
-
+  },
+  render: h=>h(App)
 
 });

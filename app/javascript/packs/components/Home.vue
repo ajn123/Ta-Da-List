@@ -1,16 +1,8 @@
 <template> 
 
-  <div id="app">
-    <h2>
-      <router-link :to="{ name: 'login_path'}">
-        Login
-      </router-link>
-    </h2>
-    <h2>
-      <router-link :to="{ name: 'signup_path'}">
-        Sign Up
-      </router-link>
-    </h2>
+  <div>
+  
+  <div v-if="loggedIn" id="app">
 
     <h1>
       Lists:
@@ -46,24 +38,30 @@
       </li>
     </ol>
 
-    <div class="list-form">
-      
-      <label for="">List Title: </label>
-      <input v-model="initialList.title" class="form-control">
-      <div v-for="(itemArray, itemCount) in initialList.itemsArray" class="form-group">
-        <label > Item {{itemCount + 1}} Title: </label>
-        <input v-model="itemArray.title" class="form-control">
-        <label > Item {{itemCount + 1}} Content: </label>
-        <input v-model="itemArray.content" class="form-control">
+      <div class="list-form">
+        
+        <label for="">List Title: </label>
+        <input v-model="initialList.title" class="form-control">
+        <div v-for="(itemArray, itemCount) in initialList.itemsArray" class="form-group">
+          <label > Item {{itemCount + 1}} Title: </label>
+          <input v-model="itemArray.title" class="form-control">
+          <label > Item {{itemCount + 1}} Content: </label>
+          <input v-model="itemArray.content" class="form-control">
 
-        <label for="">Due Date: </label>
-        <input type="date" class="form-control" value="<%= Date.today.to_s %>" v-model="itemArray.due_date"/>
-        <button class="btn btn-danger" @click="removeItem(itemCount)">REMOVE Item {{itemCount + 1}}</button>
+          <label for="">Due Date: </label>
+          <input type="date" class="form-control" value="<%= Date.today.to_s %>" v-model="itemArray.due_date"/>
+          <button class="btn btn-danger" @click="removeItem(itemCount)">REMOVE Item {{itemCount + 1}}</button>
+        </div>
+
+        <button class="btn btn-secondary" @click="addItem">Add Item</button>
+
+        <button v-show="canSubmit" class="btn-lg btn-block btn-primary" @click="submitList">Submit List</button>
       </div>
-
-      <button class="btn btn-secondary" @click="addItem">Add Item</button>
-
-      <button v-show="canSubmit" class="btn-lg btn-block btn-primary" @click="submitList">Submit List</button>
+    </div>
+    <div v-else>
+      <h3>
+        You need to sign in first to view your list.
+      </h3>
     </div>
   </div>
 
@@ -125,6 +123,9 @@ let axiosToDo = axios.create({
     computed: {
       canSubmit: function() {
         return this.initialList.title.length > 0;
+      },
+      loggedIn() {
+        return this.$store.state.user.api_key != null;
       },
     },
     channels: {

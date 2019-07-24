@@ -1,6 +1,7 @@
-import Vue from 'vue/dist/vue.esm';
+import Vue from 'vue'
 import VueRouter from 'vue-router';
 
+import store from './vuex'
 Vue.use(VueRouter);
 
 
@@ -16,6 +17,12 @@ const router = new VueRouter({
     { path: '/login', component: LogIn, name: 'login_path'},
     { path: '/signup', component: SignUp, name: 'signup_path'}
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  console.log("beforeEach");
+  next();
+
 });
 
 export default router;
