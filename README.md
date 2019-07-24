@@ -9,15 +9,10 @@ with their list through my api.
 You can create to do lists and mark them completed as you go.
 
 
-
-
 |  URL               | Parameters
 | --------           | -----------                                             |
 | POST   /lists.json | content, items_attributes: {[title, content, due_date]} |
 | GET    /lists.json |                                                         |
-
-
-
 
 This project uses:
 * accepts_nested_attributes_for to allow lists to submit items in their request
@@ -27,6 +22,9 @@ This project uses:
 * Overrides the as_json method to provided the nested attributes for a list
 * Uses memoization to only create item JSON objects once
 * Routing with Vue Router
+* Data stored in Vuex
+* axios for data requests
+ 
 
 
 Rails backend api with Vue.js binding the frontend
@@ -36,10 +34,6 @@ Rails backend api with Vue.js binding the frontend
 * cd into the directory
 * run bundle install
 * run rails s 
-
-
-
-
 
 # Thanks
 * https://vuejs.org/ 
