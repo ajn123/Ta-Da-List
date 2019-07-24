@@ -4,6 +4,10 @@
   
   <div v-if="loggedIn" id="app">
 
+    <div class="alert alert-info">
+      You API Key is: {{ this.$store.state.user.api_key }}
+    </div>
+
     <h1>
       Lists:
     </h1>

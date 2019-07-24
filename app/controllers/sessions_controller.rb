@@ -18,13 +18,17 @@ class SessionsController < ApplicationController
 
   def status
     respond_to do |format|
-      format.json { render json: { user_id: session[:user_id] } }
+      if session[:user_id]
+        format.json { render json: { user_id: session[:user_id], user: User.find(session[:user_id]) } }
+      else
+        format.json { render status: :not_found, json: { user_id: session[:user_id] } }
+      end
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path
+    render status: :ok, json: { message: 'Session destroyed' }
   end
 
   private

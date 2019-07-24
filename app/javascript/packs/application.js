@@ -26,7 +26,6 @@ import router from './routes.js'
 import './filters/strings.js'
 import store from './vuex'
 
-import NavTop from './components/shared/nav_top'
 import App from './App.vue'
 
 Vue.use(require('vue-resource'));
@@ -50,7 +49,24 @@ var webstore = new Vue({
     isloggin: false
   },
   created: function() {
+    axiosToDo.get('/sessionStatus.json').then((resp) => {
+      this.$store.commit('userLogIn', resp.data.user); 
+    }).catch((resp) => {
+      
+    });
   },
   render: h=>h(App)
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+

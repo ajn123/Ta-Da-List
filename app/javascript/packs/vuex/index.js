@@ -20,21 +20,16 @@ const store = new Vuex.Store({
       state.user.token = user.id;
       state.user.api_key = user.api_key;
     },
-    
-  },
-  actions: {
-    logIn(context, email, password) {
-      axiosToDo.post('/sessions.json', {
-        session: { email: "", password: ""}
-
-      }).then((resp) => {
-        
-      }).catch((error) => {
-        console.log(error);
-      });
+    userLogOut(state) {
+      state.user.token = null;
+      state.user.api_key = null;
     }
     
   },
+  actions: {
+    },
+    
+  
 
 });
 

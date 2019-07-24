@@ -8,15 +8,19 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <router-link :to="{ name: 'login_path'}" class="nav-item nav-link">
+        <router-link :to="{ name: 'login_path'}" class="nav-item nav-link" v-if="!signedIn">
           Login
         </router-link>
-        <router-link :to="{ name: 'signup_path'}" class="nav-item nav-link">
+        <router-link :to="{ name: 'signup_path'}" class="nav-item nav-link" v-if="!signedIn">
           Sign Up
         </router-link>
         <router-link :to="{name:  'root_path'}" class="nav-item nav-link">
           Home
         </router-link>
+        <a class="nav-item nav-link" @click="logOut" v-if="signedIn">
+          Log Out
+
+        </a>
       </div>
     </div>
   </nav>
@@ -24,5 +28,33 @@
 </template>
 
 <script charset="utf-8">
-  
+import store from '../vuex';
+import axios from 'axios'; 
+
+export default {
+  data() {
+    return {
+    
+    };
+  },
+  computed: {
+    signedIn() {
+      return this.$store.state.user.api_key != null; 
+    }
+    
+  }, 
+  methods: {
+    logOut() {
+      this.$store.commit('userLogOut');
+      axios.delete('/sessions/' + this.$store.state.user.token).then((resp) => {
+        console.log("deleted session");
+      });
+    }
+  }
+
+}
+
+
+
+
 </script>
