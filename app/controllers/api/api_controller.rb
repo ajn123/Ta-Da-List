@@ -1,5 +1,5 @@
-# frozen_string_literal: true
 
+require 'jwt'
 module Api
   # class
   class ApiController < ApplicationController
@@ -10,27 +10,17 @@ module Api
     before_action :authenticate
 
     def authenticate
-      token = request.authorization
-      puts token
-      @user = User.find_by(api_key: token)
-      # @user = authenticate_with_http_token do |token, options|
-      #  puts "YOLOR"
-      #  puts token
-      #  User.find_by(api_key: token)
-      # end
+      token =  request.headers['Authorization']
 
+      @user = authenticate_with_http_basic do |u,p|
+        User.find_by(api_key: p)
+      end
       unless @user
         render status: :unprocessable_entity, json: {
           message: 'please sumbit an API token in the header'
         }
       end
 
-      #     @user.api_count += 1
-      #     authenticate_or_request_with_http_basic do |user, api_key|
-      #       puts user
-      #       puts api_key
-      #       User.api_authorized(api_key)
-      #     end
     end
   end
 end

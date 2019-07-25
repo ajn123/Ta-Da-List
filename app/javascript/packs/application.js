@@ -37,8 +37,7 @@ Vue.use(ActionCableVue, {
 });
 
 let axiosToDo = axios.create({
-  timeout: 1000,
-  headers: {'Authorization': 'qgtSJLxhuATz4gjJVL9Nog'}
+  timeout: 1000
 });
 
 var webstore = new Vue({
@@ -48,7 +47,8 @@ var webstore = new Vue({
   data: {
     isloggin: false
   },
-  created: function() {
+  beforeCreate: function() {
+    console.log("RAN");
     axiosToDo.get('/sessionStatus.json').then((resp) => {
       this.$store.commit('userLogIn', resp.data.user); 
     }).catch((resp) => {

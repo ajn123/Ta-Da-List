@@ -5,8 +5,7 @@ class Api::ListsController < Api::ApiController
 
   def index
     render status: :ok, json: {
-      lists: List.all.as_json
-    }.to_json
+      lists: List.all    }.to_json
   end
 
   def create
@@ -48,7 +47,7 @@ class Api::ListsController < Api::ApiController
   end
 
   def show
-    render status: :ok, json: { list: @list.as_json(include: [:items]) }.to_json
+    render status: :ok, json: { list: @list.includes(:items).as_json(include: [:items]) }.to_json
   end
 
   private

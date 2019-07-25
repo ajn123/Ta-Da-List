@@ -12,7 +12,7 @@
       Lists:
     </h1>
     <ol class="list-group">
-      <li class="list-group-item" v-for="(list, idx) in lists">
+      <li class="list-group-item" v-for="(list, idx) in this.$store.state.lists">
         <h1>
           {{ list.title }} 
         </h1>
@@ -75,11 +75,7 @@
 
 <script>
 import axios from "axios"
-
-let axiosToDo = axios.create({
-  timeout: 1000,
-  headers: {'Authorization': 'qgtSJLxhuATz4gjJVL9Nog'}
-});
+import store from "../vuex"
   
     export default {
       data: function() {
@@ -88,11 +84,6 @@ let axiosToDo = axios.create({
         initialList: {title: "", items: 0, itemsArray: []}};
       },
       created: function() {
-        axiosToDo.get('/api/lists.json').then(resp => {
-          resp.data.lists.forEach((elem) => {
-            this.lists.push(elem);
-          });
-        });
       },
     methods: {
       completeItem: function(listIndex, itemIndex) {
@@ -112,13 +103,22 @@ let axiosToDo = axios.create({
         this.initialList.itemsArray.push({ title: "", content: "", due_date: "" });
       },
       submitList: function() {
-        axiosToDo.post("/api/lists.json", { list: {title: this.initialList.title,
-                                        items_attributes: this.initialList.itemsArray} }).then(
-        function(response) {
-          console.log(response); 
-          this.initialList.title = "";
 
-        }).catch(function(error) {
+        function pushListNow(response) {
+          store.commit('pushList', response.data.list);
+        }
+
+        axios.post("/api/lists.json", { list: {title: this.initialList.title,
+                                        items_attributes: this.initialList.itemsArray} },
+          { 
+            auth: 
+            {
+              username: this.$store.state.user.token, 
+              password: this.$store.state.user.api_key
+            }
+          }
+        
+        ).then(pushListNow).catch(function(error) {
           console.log(error); 
         });
       },
