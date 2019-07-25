@@ -1,5 +1,4 @@
-
-require 'jwt'
+# frozen_string_literal: true
 module Api
   # class
   class ApiController < ApplicationController
@@ -10,9 +9,7 @@ module Api
     before_action :authenticate
 
     def authenticate
-      token =  request.headers['Authorization']
-
-      @user = authenticate_with_http_basic do |u,p|
+      @user = authenticate_with_http_basic do |_u, p|
         User.find_by(api_key: p)
       end
       unless @user
@@ -20,7 +17,6 @@ module Api
           message: 'please sumbit an API token in the header'
         }
       end
-
     end
   end
 end

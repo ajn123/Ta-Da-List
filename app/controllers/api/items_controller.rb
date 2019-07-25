@@ -2,7 +2,6 @@
 
 # Api controller for items
 class Api::ItemsController < Api::ApiController
-
   before_action :find_list
 
   def index
