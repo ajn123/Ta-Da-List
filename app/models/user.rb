@@ -13,6 +13,7 @@ class User < ApplicationRecord
     self.api_key = SecureRandom.urlsafe_base64
     while User.api_authorized(api_key)
       self.api_key = SecureRandom.urlsafe_base64
+      self.api_key = Base64.encode64("#{self.id}:#{self.api_key}")
     end
   end
 

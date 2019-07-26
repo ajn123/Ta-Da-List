@@ -7,6 +7,8 @@ with their list through my api.
 
 
 You can create to do lists and mark them completed as you go.
+Each list can have as many items as you need, an item must be
+associated with a list.
 
 
 |  URL               | Parameters
@@ -17,6 +19,13 @@ You can create to do lists and mark them completed as you go.
 
 You can make an external request with your API key displayed when you walk in
 You need to pass in your API key to the Authorization header in your request.
+
+This project uses basic Authorization so in your header you would do:
+
+```
+headers: Authorization: Basic <token>
+```
+
 
 This project uses:
 * accepts_nested_attributes_for to allow lists to submit items in their request

@@ -5,7 +5,7 @@ import store from './vuex'
 Vue.use(VueRouter);
 
 
-import HomeIndex from './components/Home.vue';
+import HomeIndex from './components/Home.vue.erb';
 import LogIn     from './components/LogIn.vue.erb'
 import SignUp    from './components/SignUp.vue.erb'
 
