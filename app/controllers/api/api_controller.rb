@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Api
   # class
   class ApiController < ApplicationController
@@ -9,7 +10,7 @@ module Api
     before_action :authenticate
 
     def authenticate
-      @user = authenticate_with_http_basic do |_u, p|
+      @user = authenticate_with_http_basic do |u, p|
         User.find_by(api_key: p)
       end
       unless @user

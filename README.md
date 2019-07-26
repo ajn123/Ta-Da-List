@@ -14,6 +14,10 @@ You can create to do lists and mark them completed as you go.
 | POST   /lists.json | content, items_attributes: {[title, content, due_date]} |
 | GET    /lists.json |                                                         |
 
+
+You can make an external request with your API key displayed when you walk in
+You need to pass in your API key to the Authorization header in your request.
+
 This project uses:
 * accepts_nested_attributes_for to allow lists to submit items in their request
 * protect_from_forgery with: nullsession to allow api requests form any where

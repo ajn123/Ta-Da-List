@@ -28,6 +28,7 @@ class Api::ListsController < Api::ApiController
 
   def destroy
     id = @list.id
+    @list.destroy
     ActionCable.server.broadcast 'list_channel',
                                  action: 'DELETE',
                                  id: id

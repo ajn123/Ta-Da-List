@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   before_create do
     self.api_key = SecureRandom.urlsafe_base64
-    while User.api_authorized(api_key) == true
+    while User.api_authorized(api_key)
       self.api_key = SecureRandom.urlsafe_base64
     end
   end

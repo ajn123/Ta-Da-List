@@ -31,12 +31,9 @@ const store = new Vuex.Store({
            }
          } 
       ).then((resp) => {
-         console.log(resp.data);  
         resp.data.lists.forEach((el) => {
-        });
-         
+      });
         state.lists = resp.data.lists
-      
       }); 
     },
     userLogOut(state) {
