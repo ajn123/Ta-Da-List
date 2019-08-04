@@ -16,4 +16,12 @@ RSpec.describe Item, type: :model do
       expect(item_error).to be_valid
     end
   end
+
+  describe '#as_json' do
+    let(:item) { Item.create(list: @list, title: 'Item 1', content: 'content') }
+
+    it 'includes the date in correct format' do
+      expect(item.as_json.keys).to include 'due_date'
+    end
+  end
 end

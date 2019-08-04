@@ -11,7 +11,12 @@ class Item < ApplicationRecord
 
   def as_json(*)
     super.tap do |hash|
-      hash['due_date'] = due_date.strftime('%F %T %P')
+      hash['due_date'] = format
     end
+  end
+
+
+  def format
+    self.due_date.strftime('%F %T %P')
   end
 end
